@@ -32,15 +32,13 @@
 					</textarea>
 				</section>
 				<section>
-					<p>Scope</p>
+					<p class="emphsis">Scope</p>
 					<p>determines the accessibility (visibility) of variables.</p>
-					<p>Scope</p>
-					<p>	the locations where the variable is accessible
-						a logical boundaries in which a variable (or expression) has its meaning.</p>
 				</section>
 				<section data-markdown>
 						<textarea data-template>
-								<p>There are two kinds of scope</p>
+								## There are two kinds of scope
+								
 								<ul>
 									<li>global scope</li>
 									<li>local scope</li>
@@ -53,19 +51,19 @@
 							If a variable is declared outside all functions or curly braces ({}), it is said to be defined in the global scope.
 							<pre>
 								<code class="hljs javascript" data-trim="" contenteditable="">
-									const hello = 'Hello CSS-Tricks Reader!'
+									const hello = 'Hello World!'
 
 									function sayHello () {
 									 console.log(hello)
 									}
 											
-									console.log(hello) // 'Hello CSS-Tricks Reader!'
-									sayHello() // 'Hello CSS-Tricks Reader!'var a = b;
+									console.log(hello) // 'Hello World!'
+									sayHello() // 'Hello World!'
 								</code>
 							</pre>
 					</section>
 					<section>
-						Although you can declare variables in the global scope, it is advised not to. This is because there is a chance of naming collisions, where two or more variables are named the same. If you declared your variables with const or let, you would receive an error whenever a name collision happens. This is undesirable.
+						If you declared your variables with const or let, you would receive an error whenever a name collision happens.
 						<pre>
 							<code class="hljs javascript" data-trim="" contenteditable="">
 									// Don't do this!
@@ -87,24 +85,26 @@
 					</section>
 				</section>
 				<section>
-					<section>
-						<p>Local Scope</p>
-						Variables that are usable only in a specific part of your code are considered to be in a local scope. These variables are also called local variables.
-						In JavaScript, there are two kinds of local scope: function scope and block scope.
+					<section data-markdown>
+						<textarea data-template>
+							<p>Local Scope</p>
+							<ul>
+								<li>function scope</li>
+								<li>block scope</li>
+							</ul>
+						</textarea>
 					</section>
 					<section>
 						<p>Function scope</p>
-						When you declare a variable in a function, you can access this variable only within the function. You can't get this variable once you get out of it.
-
-						In the example below, the variable hello is in the sayHello scope:
+						When you declare a variable in a function, you can access this variable only within the function.
 						<pre>
 							<code class="hljs javascript" data-trim="" contenteditable="">
 								function sayHello () {
-									const hello = 'Hello CSS-Tricks Reader!'
+									const hello = 'Hello World!'
 									console.log(hello)
 								  }
 								  
-								  sayHello() // 'Hello CSS-Tricks Reader!'
+								  sayHello() // 'Hello World!'
 								  console.log(hello) // Error, hello is not defined
 							</code>
 						</pre>
@@ -113,12 +113,12 @@
 						<p>Block scope</p>
 						When you declare a variable with const or let within a curly brace ({}), you can access this variable only within that curly brace.
 
-						In the example below, you can see that hello is scoped to the curly brace:
+						
 						<pre>
 							<code class="hljs javascript" data-trim="" contenteditable="">
-								{
-									const hello = 'Hello CSS-Tricks Reader!'
-									console.log(hello) // 'Hello CSS-Tricks Reader!'
+								if () {
+									const hello = 'Hello Word!'
+									console.log(hello) // 'Hello World!'
 								  }
 								  
 								  console.log(hello) // Error, hello is not defined
@@ -126,22 +126,19 @@
 						</pre>
 					</section>
 					<section>
-						The block scope is a subset of a function scope since functions need to be declared with curly braces (unless you're using arrow functions with an implicit return).
-					</section>
-					<section>
 						<p>Function hoisting and scopes</p>
-						Functions, when declared with a function declaration, are always hoisted to the top of the current scope. So, these two are equivalent:
+						Functions, when declared with a function declaration, are always hoisted to the top of the current scope.
 						<pre>
 							<code class="hljs javascript" data-trim="" contenteditable="">
 								// This is the same as the one below
 								sayHello()
 								function sayHello () {
-								  console.log('Hello CSS-Tricks Reader!')
+								  console.log('Hello World!')
 								}
 								
 								// This is the same as the code above
 								function sayHello () {
-								  console.log('Hello CSS-Tricks Reader!')
+								  console.log('Hello World!')
 								}
 								sayHello()
 							</code>
@@ -157,31 +154,36 @@
 									}
 								</code>
 							</pre>
-							Because of these two variations, function hoisting can potentially be confusing, and should not be used. Always declare your functions before you use them.
+
+							<pre>
+									<code class="hljs javascript" data-trim="" contenteditable="">
+										sayHello() // Error, sayHello is not a function
+										var sayHello = function () {
+										  console.log(aFunction)
+										}
+								</code>
+							</pre>
+							
 					</section>
 					<section>
 						<p>Functions do not have access to each other's scopes</p>
-						Functions do not have access to each other's scopes when you define them separately, even though one function may be used in another.
-
-						In this example below, second does not have access to firstFunctionVariable.
+						
 						<pre>
 							<code class="hljs javascript" data-trim="" contenteditable="">
 								function first () {
-									const firstFunctionVariable = `I'm part of first`
-								  }
+								  const firstFunctionVariable = `I'm part of first`
+								}
 								  
-								  function second () {
-									first()
-									console.log(firstFunctionVariable) // Error, firstFunctionVariable is not defined
-								  }
+								function second () {
+								  first()
+								  console.log(firstFunctionVariable) // Error, firstFunctionVariable is not defined
+								}
 							</code>
 						</pre>
 					</section>
 					<section>
 						<p>Nested scopes</p>
-						When a function is defined in another function, the inner function has access to the outer function's variables. This behavior is called lexical scoping.
-
-						However, the outer function does not have access to the inner function's variables.
+					
 						<pre>
 							<code class="hljs javascript" data-trim="" contenteditable="">
 								function outerFunction () {
@@ -199,12 +201,10 @@
 					</section>
 				</section>
 
-				<section>
-					<pre>
-						<code class="hljs javascript" data-trim="" contenteditable="">
-							var a = b;
-						</code>
-					</pre>
+				<section data-markdown>
+					<textarea data-template>
+						## Thank you!
+					</textarea>
 				</section>
 			</div>
 		</div>
